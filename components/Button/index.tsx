@@ -6,7 +6,7 @@ interface Props {
 const Button: React.FC<Props> = ({ text, onClick }) => {
   return (
     <button
-      className="w-3/5 h-[50px] text-white font-medium text-lg tracking-widest rounded-full uppercase py-2 border-glow"
+      className="w-3/5 h-[50px] text-white font-medium text-lg tracking-widest rounded-full uppercase py-2 border-glow grow"
       onClick={onClick}
     >
       {text}

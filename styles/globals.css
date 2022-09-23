@@ -62,6 +62,35 @@ li {
   box-shadow: 0px 0px 40px rgba(121, 159, 255, 0.4),
     0px 0px 5px 1px rgba(219, 225, 255, 0.75);
   border-radius: 40px;
+  transition: 0.4s all;
+}
+.border-glow:hover {
+  background: rgba(82, 78, 133, 0.5);
+  box-shadow: 0px 0px 60px rgba(121, 159, 255, 0.6),
+    0px 0px 5px 1px rgba(219, 225, 255, 0.75);
+  border-radius: 40px;
+  transition: 0.4s all;
+}
+
+.glow {
+  transition: 0.2s all;
+  -webkit-animation: 0.2s all;
+  -moz-animation: 0.2s all;
+}
+
+.glow:hover {
+  filter: drop-shadow(0px 0px 10px #fff);
+}
+
+.grow {
+  transition: 0.8s all;
+  -webkit-animation: 0.8s all;
+  -moz-animation: 0.8s all;
+}
+.grow:hover {
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
 }
 
 @media (prefers-color-scheme: dark) {

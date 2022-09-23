@@ -8,22 +8,12 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut,
 } from "firebase/auth";
+
 import { firebaseConfig } from "../utils/firebase";
+import { addUser } from "../utils/db";
 
 import Dashboard from "../components/Dashboard";
-import Login from "../components/Login";
-
-export const signOutFunc = (auth: any) => {
-  signOut(auth)
-    .then(() => {
-      console.log("Signed out.");
-    })
-    .catch((error) => {
-      console.log("Failed to sign out:", error);
-    });
-};
 
 const Home: NextPage = () => {
   const app = initializeApp(firebaseConfig);
@@ -45,6 +35,8 @@ const Home: NextPage = () => {
         }
         const user = result.user;
         setUser(user);
+        addUser(user, user.displayName, user.email);
+        console.log("Signed in as ", user.email);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -72,7 +64,7 @@ const Home: NextPage = () => {
         <meta name="description" content="lorem ipsum" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Dashboard auth={auth} user={user} />
+      <Dashboard auth={auth} user={user} signIn={signIn} />
     </main>
   );
 };
