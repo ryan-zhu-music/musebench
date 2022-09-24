@@ -1,5 +1,6 @@
 import Navbar from "../Navbar";
 import { tests } from "../../data/tests";
+import Link from "next/link";
 interface Props {
   auth: any;
   user: any;
@@ -19,22 +20,24 @@ const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
       <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
       <div className="flex flex-wrap w-screen justify-center items-center px-20">
         {tests.map((test) => (
-          <div
-            className="flex flex-col items-center justify-center w-[275px] h-[275px] border-glow m-2 p-4"
-            key={test.title}
-          >
-            <div className="h-1/2 flex flex-col justify-end pt-1">
-              <img
-                src={test.image}
-                alt={test.title}
-                className="object-containw-full h-full"
-              />
+          <Link href={`/tests/${test.title.toLowerCase()}`}>
+            <div
+              className="flex flex-col items-center justify-center w-[275px] h-[275px] border-glow m-2 p-4 cursor-pointer"
+              key={test.title}
+            >
+              <div className="h-1/2 flex flex-col justify-end pt-1">
+                <img
+                  src={test.image}
+                  alt={test.title}
+                  className="object-containw-full h-full"
+                />
+              </div>
+              <div className="h-1/2 flex flex-col items-center justify-start">
+                <h3 className="text-center text-white">{test.title}</h3>
+                <h4 className="text-center text-white">{test.subtitle}</h4>
+              </div>
             </div>
-            <div className="h-1/2 flex flex-col items-center justify-start">
-              <h3 className="text-center text-white">{test.title}</h3>
-              <h4 className="text-center text-white">{test.subtitle}</h4>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
     </main>

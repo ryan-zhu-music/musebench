@@ -34,7 +34,7 @@ const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
         <div className="flex w-1/2 items-center justify-center flex-shrink-0 text-white">
           <span className="font-semibold text-xl tracking-tight">
             <Link href="/">
-              <img src="./Logo.png" alt="MuseBench" />
+              <img src="/assets/Logo.png" alt="MuseBench" />
             </Link>
           </span>
         </div>
