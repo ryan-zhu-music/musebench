@@ -43,7 +43,7 @@ export const tests = [
   },
   {
     title: "BPM",
-    subtitle: "What is the tempo of the song?",
+    subtitle: "What's the beats per minute?'",
     link: "/bpm",
     image: "/assets/icons/BPM.png",
   },

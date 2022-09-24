@@ -1,42 +1,70 @@
+import type { NextPage } from "next";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 
-import Navbar from "../../components/Navbar";
-import Keyboard from "../../components/Keyboard";
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 
-interface Props {
-  auth: any;
-  user: any;
-  signIn: () => void;
-}
+import { firebaseConfig } from "../../utils/firebase";
+import { addUser } from "../../utils/db";
 
-const Perfect: React.FC<Props> = ({ auth, user, signIn }) => {
+import TestPerfect from "../../components/Tests/Perfect";
+
+const Perfect: NextPage = () => {
+  const app = initializeApp(firebaseConfig);
+
+  const [user, setUser] = useState<any>(null);
+
+  const auth = getAuth();
+  auth.languageCode = "en";
+  const provider = new GoogleAuthProvider();
+
+  const signIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (credential) {
+          const token = credential.idToken;
+        } else {
+          const token = null;
+        }
+        const user = result.user;
+        setUser(user);
+        addUser(user, user.displayName, user.email);
+        console.log("Signed in as ", user.email);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("error:", errorCode, errorMessage);
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+      });
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
   return (
-    <main
-      className="w-screen h-screen pb-10 flex flex-col"
-      style={{
-        background:
-          "linear-gradient(117.92deg, #17181B 4.93%, #3C3D70 47.36%, #1E1F48 57.8%, #05061F 92.37%)",
-        boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
-      }}
-    >
-      <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
-      <div className="w-full h-full px-20">
-        <div
-          className="w-full h-full flex flex-col justify-center items-center"
-          style={{
-            background: "rgba(63, 71, 101, 0.23)",
-            boxShadow:
-              "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
-            borderRadius: "70px",
-          }}
-        >
-          <header className="w-full flex flex-col items-center justify-center p-5">
-            <h1 className="">Perfect</h1>
-            <p>What's the pitch of the note?</p>
-          </header>
-          <Keyboard />
-        </div>
-      </div>
+    <main className="w-screen h-screen">
+      <Head>
+        <title>MuseBench</title>
+        <meta name="description" content="lorem ipsum" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <TestPerfect auth={auth} user={user} signIn={signIn} />
     </main>
   );
 };
