@@ -36,6 +36,11 @@ const Drawer: React.FC<Props> = ({
             </Link>
           </li>
           <li>
+            <Link href="/">
+              <a className="glow">Profile</a>
+            </Link>
+          </li>
+          <li>
             <Link href="/about">
               <a className="glow">About</a>
             </Link>
@@ -44,7 +49,7 @@ const Drawer: React.FC<Props> = ({
             <a className="mb-2 glow">Tests</a>
             <ul className="flex flex-col justify-evenly items-start pl-10">
               {tests.map((test) => (
-                <li className="mb-2" key={test.title}>
+                <li className="mb-1" key={test.title}>
                   <Link href={test.link}>
                     <a className="text-lg glow">{test.title}</a>
                   </Link>
