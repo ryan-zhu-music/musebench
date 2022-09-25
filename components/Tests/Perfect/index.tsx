@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
-
+import Image from "next/image";
 import Audio from "../../Audio";
 import Navbar from "../../Navbar";
 import Keyboard from "../../Keyboard";
@@ -81,7 +81,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
             <div className="w-1/5" />
             <div className="flex flex-col items-center justify-center w-3/5">
               <h1 className="">Perfect</h1>
-              <p>What's the pitch of the note?</p>
+              <p>{"What's the pitch of the note?"}</p>
             </div>
             <div className="flex flex-col items-end w-1/5 pr-10">
               {Array.from({ length: 3 }, (_, i) => (
@@ -97,10 +97,13 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
             className="h-1/3 min-h-[190px] p-5 mb-2 relative flex flex-col items-center justify-center"
             onClick={() => playKey()}
           >
-            <img
+            <Image
               src="/assets/icons/Play Button.png"
               alt="Play Button"
               className="object-contain h-full w-full"
+              layout="intrinsic"
+              width={140}
+              height={140}
             />
             <p className="absolute text-[#3C3D70] text-5xl pr-6 font-extrabold">
               {score}

@@ -30,7 +30,10 @@ const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
                 <Image
                   src={test.image}
                   alt={test.title}
-                  className="object-containw-full h-full"
+                  className="object-contain"
+                  layout="intrinsic"
+                  width={140}
+                  height={140}
                 />
               </div>
               <div className="h-1/2 flex flex-col items-center justify-start">
