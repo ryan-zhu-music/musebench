@@ -5,13 +5,21 @@ interface Props {
   note: any;
   isPlaying: boolean;
   bpm: number;
+  setIsPlaying: (isPlaying: boolean) => void;
 }
 
-const Audio: React.FC<Props> = ({ note, isPlaying, bpm }) => {
+const Audio: React.FC<Props> = ({ note, isPlaying, bpm, setIsPlaying }) => {
   return (
     <main>
-      <Song isPlaying={isPlaying} bpm={bpm} volume={-2} isMuted={false}>
-        <Track steps={note}>
+      <Song isPlaying={isPlaying} bpm={bpm} volume={1} isMuted={false}>
+        <Track
+          steps={note}
+          onStepPlay={(step) => {
+            if (!step[0].name) {
+              setIsPlaying(false);
+            }
+          }}
+        >
           <Instrument
             type="synth"
             polyphony={1}

@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 
 import { initializeApp } from "firebase/app";
@@ -14,6 +13,7 @@ import { firebaseConfig } from "../utils/firebase";
 import { addUser } from "../utils/db";
 
 import Dashboard from "../components/Dashboard";
+import PageHead from "../components/PageHead";
 
 const Home: NextPage = () => {
   const app = initializeApp(firebaseConfig);
@@ -59,11 +59,7 @@ const Home: NextPage = () => {
 
   return (
     <main className="w-screen h-screen">
-      <Head>
-        <title>MuseBench</title>
-        <meta name="description" content="lorem ipsum" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <PageHead />
       <Dashboard auth={auth} user={user} signIn={signIn} />
     </main>
   );

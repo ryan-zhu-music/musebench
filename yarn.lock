@@ -2315,6 +2315,11 @@ react-is@^16.13.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-music-keyboard@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-music-keyboard/-/react-music-keyboard-1.0.3.tgz#6eb14113a759e2eb7247ff4c7bde1a5542b36c52"
+  integrity sha512-x/MOhdTq9xt8N5ViF1cP3HqsiEVl0zt7GtU0y9xaS0GIoiMW6T6wkyN8BgoPCDDbHn6C4pAHxie1VYQ4fFtwYg==
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

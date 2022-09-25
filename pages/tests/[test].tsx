@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/router";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -14,8 +14,9 @@ import { firebaseConfig } from "../../utils/firebase";
 import { addUser } from "../../utils/db";
 
 import TestPerfect from "../../components/Tests/Perfect";
+import TestRelative from "../../components/Tests/Relative";
 
-const Perfect: NextPage = () => {
+const Test: NextPage = () => {
   const app = initializeApp(firebaseConfig);
 
   const [user, setUser] = useState<any>(null);
@@ -57,6 +58,20 @@ const Perfect: NextPage = () => {
     });
   }, []);
 
+  const router = useRouter();
+  const { test } = router.query;
+
+  const switchPage = (page: any) => {
+    switch (page) {
+      case "perfect":
+        return <TestPerfect auth={auth} user={user} signIn={signIn} />;
+      case "relative":
+        return <TestRelative auth={auth} user={user} signIn={signIn} />;
+      default:
+        return <></>;
+    }
+  };
+
   return (
     <main className="w-screen h-screen">
       <Head>
@@ -64,9 +79,9 @@ const Perfect: NextPage = () => {
         <meta name="description" content="lorem ipsum" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TestPerfect auth={auth} user={user} signIn={signIn} />
+      {switchPage(test)}
     </main>
   );
 };
 
-export default Perfect;
+export default Test;

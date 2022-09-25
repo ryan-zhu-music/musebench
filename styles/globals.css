@@ -32,7 +32,7 @@ h1 {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 900;
-  font-size: 50px;
+  font-size: 40px;
   line-height: 79px;
   text-align: center;
   letter-spacing: 0.1em;
@@ -106,6 +106,10 @@ li {
   transform: scale(1.05);
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
+}
+
+.key:hover {
+  background: #7b7db3;
 }
 
 @media (prefers-color-scheme: dark) {

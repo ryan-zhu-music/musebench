@@ -40,7 +40,7 @@ const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
                 alt="MuseBench"
                 layout="intrinsic"
                 width={300}
-                height={32}
+                height={30}
               />
             </Link>
           </span>

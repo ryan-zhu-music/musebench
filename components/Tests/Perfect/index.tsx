@@ -3,7 +3,10 @@ import { IoClose } from "react-icons/io5";
 import Image from "next/image";
 import Audio from "../../Audio";
 import Navbar from "../../Navbar";
-import Keyboard from "../../Keyboard";
+import PageHead from "../../PageHead";
+
+import { Keyboard } from "react-music-keyboard";
+
 import { random } from "../../../utils/random";
 import { allKeys } from "../../../data/keys";
 import Button from "../../Button";
@@ -17,12 +20,12 @@ interface Props {
 }
 
 const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
-  const [counter, setCounter] = useState(0);
   const [key, setKey] = useState(allKeys[random(0, allKeys.length - 1)]);
   const [selectedKey, setSelectedKey] = useState("");
   const [score, setScore] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     if (mistakes >= 3) {
@@ -43,20 +46,13 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
       } else {
         setScore(score + 1);
       }
-      setKey(allKeys[random(0, allKeys.length - 1)]);
-      setCounter(2);
+      let newKey = allKeys[random(0, allKeys.length - 1)];
+      while (newKey === key) {
+        newKey = allKeys[random(0, allKeys.length - 1)];
+      }
+      setKey(newKey);
     }
   }, [selectedKey]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      counter > 0 && setCounter(counter - 1);
-    }, 1000);
-  }, [counter]);
-
-  const playKey = () => {
-    setCounter(2);
-  };
 
   return (
     <main
@@ -67,6 +63,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
         boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
       }}
     >
+      <PageHead />
       <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
       <div className="w-full h-full px-20">
         <div
@@ -77,7 +74,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
               "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
           }}
         >
-          <header className="w-full flex items-center justify-between p-5">
+          <header className="w-full flex items-center justify-between px-5">
             <div className="w-1/5" />
             <div className="flex flex-col items-center justify-center w-3/5">
               <h1 className="">Perfect</h1>
@@ -88,29 +85,50 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
                 <IoClose
                   size={40}
                   key={i}
-                  className={i < mistakes ? "text-red-200" : "text-slate-200"}
+                  className={i < mistakes ? "text-red-300" : "text-slate-200"}
                 />
               ))}
             </div>
           </header>
           <button
-            className="h-1/3 min-h-[190px] p-5 mb-2 relative flex flex-col items-center justify-center"
-            onClick={() => playKey()}
+            className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300 hover:brightness-"
+            onClick={() => setIsPlaying(true)}
           >
             <Image
               src="/assets/icons/Play Button.png"
               alt="Play Button"
-              className="object-contain h-full w-full"
+              className="object-contain h-full w-full play-button"
               layout="intrinsic"
-              width={140}
-              height={140}
+              width={100}
+              height={100}
             />
-            <p className="absolute text-[#3C3D70] text-5xl pr-6 font-extrabold">
+            <p className="absolute text-[#3C3D70] text-3xl pr-6 font-extrabold">
               {score}
             </p>
           </button>
-          <Audio note={[key]} isPlaying={counter > 0} bpm={20} />
-          <Keyboard setSelectedKey={setSelectedKey} />
+          <Audio
+            note={[key, ""]}
+            isPlaying={isPlaying}
+            bpm={60}
+            setIsPlaying={setIsPlaying}
+          />
+          <Keyboard
+            height={120}
+            blackKeyHeight={83}
+            blackKeyColor="#3C3D70"
+            whiteKeyColor="#cbd5e1"
+            whiteKeyWidth={40}
+            blackKeyWidth={35}
+            keySpacing={4}
+            borderRadius={10}
+            startNote="C3"
+            endNote="B4"
+            onKeyPress={(key) => {
+              setSelectedKey(key);
+            }}
+            whiteKeyClass="white-key"
+            blackKeyClass="black-key"
+          />
           {gameOver && (
             <div className="absolute w-full h-full flex flex-col items-center justify-center backdrop-blur-md bg-slate-600/50 z-10 rounded-3xl">
               <h2 className="text-5xl font-bold">Game Over</h2>
@@ -122,7 +140,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
                 <Button
                   text="Retry"
                   onClick={() => {
-                    setCounter(0);
+                    setIsPlaying(false);
                     setKey(allKeys[random(0, allKeys.length - 1)]);
                     setSelectedKey("");
                     setScore(0);

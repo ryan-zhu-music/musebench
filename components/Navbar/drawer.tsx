@@ -21,7 +21,7 @@ const Drawer: React.FC<Props> = ({
 }) => {
   return (
     <nav
-      className={`float-left absolute bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out ${
+      className={`float-left absolute bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out z-20 ${
         isOpen ? "left-0" : "-left-[400px]"
       }`}
     >
@@ -50,7 +50,7 @@ const Drawer: React.FC<Props> = ({
             <ul className="flex flex-col justify-evenly items-start pl-10">
               {tests.map((test) => (
                 <li className="mb-1" key={test.title}>
-                  <Link href={test.link}>
+                  <Link href={"/tests" + test.link}>
                     <a className="text-lg glow">{test.title}</a>
                   </Link>
                 </li>
