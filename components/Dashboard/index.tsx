@@ -1,4 +1,5 @@
 import Navbar from "../Navbar";
+import Image from "next/image";
 import { tests } from "../../data/tests";
 import Link from "next/link";
 interface Props {
@@ -20,13 +21,13 @@ const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
       <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
       <div className="flex flex-wrap w-screen justify-center items-center px-20">
         {tests.map((test) => (
-          <Link href={`/tests/${test.title.toLowerCase()}`}>
+          <Link href={`/tests/${test.title.toLowerCase()}`} key={test.title}>
             <div
               className="flex flex-col items-center justify-center w-[275px] h-[275px] border-glow m-2 p-4 cursor-pointer"
               key={test.title}
             >
               <div className="h-1/2 flex flex-col justify-end pt-1">
-                <img
+                <Image
                   src={test.image}
                   alt={test.title}
                   className="object-containw-full h-full"

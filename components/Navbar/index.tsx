@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FiMenu } from "react-icons/fi";
 import Button from "../Button";
 import Drawer from "./drawer";
@@ -31,10 +32,11 @@ const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
         >
           <FiMenu size={40} className="glow" />
         </button>
+        Image
         <div className="flex w-1/2 items-center justify-center flex-shrink-0 text-white">
           <span className="font-semibold text-xl tracking-tight">
             <Link href="/">
-              <img src="/assets/Logo.png" alt="MuseBench" />
+              <Image src="/assets/Logo.png" alt="MuseBench" />
             </Link>
           </span>
         </div>
