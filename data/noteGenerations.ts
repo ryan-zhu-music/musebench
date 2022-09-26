@@ -1,4 +1,4 @@
-export const noteGenerations: { [key: string]: any } = {
+const noteGenerations: { [key: string]: any } = {
   stage0: {
     // diatonic
     length: 5,
@@ -93,7 +93,7 @@ export const noteGenerations: { [key: string]: any } = {
         19: 5,
         20: 1,
         11: 6,
-        9: 2,
+        8: 2,
         7: 4,
       },
       14: {
@@ -102,7 +102,7 @@ export const noteGenerations: { [key: string]: any } = {
         19: 4,
         12: 4,
         11: 8,
-        9: 2,
+        8: 2,
         7: 3,
       },
       15: {
@@ -112,7 +112,7 @@ export const noteGenerations: { [key: string]: any } = {
         14: 8,
         12: 3,
         11: 2,
-        9: 3,
+        8: 3,
         7: 2,
       },
       17: {
@@ -129,7 +129,7 @@ export const noteGenerations: { [key: string]: any } = {
         14: 4,
         12: 4,
         11: 1,
-        9: 1,
+        8: 1,
         7: 4,
       },
       20: {
@@ -138,7 +138,7 @@ export const noteGenerations: { [key: string]: any } = {
         15: 2,
         14: 6,
         12: 1,
-        9: 1,
+        8: 1,
       },
       11: {
         12: 10,
@@ -146,10 +146,10 @@ export const noteGenerations: { [key: string]: any } = {
         15: 2,
         17: 1,
         19: 2,
-        9: 9,
+        8: 8,
         7: 4,
       },
-      9: {
+      8: {
         11: 8,
         12: 3,
         14: 5,
@@ -159,7 +159,7 @@ export const noteGenerations: { [key: string]: any } = {
         7: 7,
       },
       7: {
-        9: 10,
+        8: 10,
         11: 5,
         12: 6,
         14: 3,
@@ -285,10 +285,12 @@ export const noteGenerations: { [key: string]: any } = {
         14: 6,
         15: 5,
         17: 3,
+        18: 1,
         19: 5,
         20: 1,
         11: 6,
-        9: 2,
+        10: 4,
+        8: 2,
         7: 4,
       },
       14: {
@@ -297,34 +299,46 @@ export const noteGenerations: { [key: string]: any } = {
         19: 4,
         12: 4,
         11: 8,
-        9: 2,
+        10: 2,
+        8: 2,
         7: 3,
       },
       15: {
         17: 8,
+        18: 3,
         19: 5,
         20: 4,
         14: 8,
         12: 3,
         11: 2,
-        9: 3,
+        10: 1,
+        8: 3,
         7: 2,
       },
       17: {
+        18: 4,
         19: 5,
         20: 3,
         15: 6,
         14: 5,
         12: 2,
+        10: 1,
+      },
+      18: {
+        19: 7,
+        17: 2,
+        15: 1,
       },
       19: {
         20: 5,
+        18: 3,
         17: 8,
         15: 5,
         14: 4,
         12: 4,
         11: 1,
-        9: 1,
+        10: 1,
+        8: 1,
         7: 4,
       },
       20: {
@@ -333,7 +347,7 @@ export const noteGenerations: { [key: string]: any } = {
         15: 2,
         14: 6,
         12: 1,
-        9: 1,
+        8: 1,
       },
       11: {
         12: 10,
@@ -341,11 +355,24 @@ export const noteGenerations: { [key: string]: any } = {
         15: 2,
         17: 1,
         19: 2,
-        9: 9,
+        8: 8,
         7: 4,
       },
+      10: {
+        12: 2,
+        14: 2,
+        15: 1,
+        9: 1,
+        8: 5,
+        7: 1,
+      },
       9: {
-        11: 8,
+        11: 3,
+        8: 1,
+      },
+      8: {
+        10: 3,
+        11: 5,
         12: 3,
         14: 5,
         15: 6,
@@ -354,7 +381,9 @@ export const noteGenerations: { [key: string]: any } = {
         7: 7,
       },
       7: {
-        9: 10,
+        8: 10,
+        9: 1,
+        10: 2,
         11: 5,
         12: 6,
         14: 3,
@@ -365,3 +394,44 @@ export const noteGenerations: { [key: string]: any } = {
     },
   },
 };
+
+noteGenerations.stage2 = { ...noteGenerations.stage0 };
+noteGenerations.stage2.length = 7;
+noteGenerations.stage3 = { ...noteGenerations.stage1 };
+noteGenerations.stage3.length = 7;
+
+noteGenerations.stage4 = {
+  length: 5,
+  atonal: {},
+};
+
+for (let i = 3; i < 22; i++) {
+  noteGenerations.stage4.atonal[i] = {};
+  for (let j = 3; j < 22; j++) {
+    noteGenerations.stage4.atonal[i][j] = 19 - Math.abs(i - j);
+    noteGenerations.stage4.atonal[i][i] = 1;
+  }
+}
+
+noteGenerations.stage5 = { ...noteGenerations.stage4 };
+noteGenerations.stage5.length = 7;
+
+noteGenerations.stage6 = {
+  length: 5,
+  atonal: {},
+};
+
+for (let i = 3; i < 22; i++) {
+  noteGenerations.stage6.atonal[i] = {};
+  for (let j = 3; j < 22; j++) {
+    noteGenerations.stage6.atonal[i][j] = 1;
+  }
+}
+
+noteGenerations.stage7 = { ...noteGenerations.stage6 };
+noteGenerations.stage7.length = 7;
+
+noteGenerations.stage8 = { ...noteGenerations.stage6 };
+noteGenerations.stage8.length = 9;
+
+export default noteGenerations;

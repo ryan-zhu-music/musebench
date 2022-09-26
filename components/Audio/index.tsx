@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import { Song, Track, Instrument, Effect } from "reactronica";
 
 interface Props {
-  note: any;
+  melody: any;
   isPlaying: boolean;
   bpm: number;
   setIsPlaying: (isPlaying: boolean) => void;
 }
 
-const Audio: React.FC<Props> = ({ note, isPlaying, bpm, setIsPlaying }) => {
+const Audio: React.FC<Props> = ({ melody, isPlaying, bpm, setIsPlaying }) => {
   return (
     <main>
       <Song isPlaying={isPlaying} bpm={bpm} volume={1} isMuted={false}>
         <Track
-          steps={note}
+          steps={melody}
           onStepPlay={(step) => {
             if (!step[0].name) {
               setIsPlaying(false);

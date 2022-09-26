@@ -32,7 +32,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
       setGameOver(true);
       if (user) {
         getScores(user.email).then((res) => {
-          let scores = { ...res };
+          let scores = { ...res }.scores;
           if (score > scores.perfect) {
             scores.perfect = score;
             updateScores(user.email, scores);
@@ -107,7 +107,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
             </p>
           </button>
           <Audio
-            note={[key, ""]}
+            melody={[key, ""]}
             isPlaying={isPlaying}
             bpm={60}
             setIsPlaying={setIsPlaying}
@@ -132,7 +132,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
           {gameOver && (
             <div className="absolute w-full h-full flex flex-col items-center justify-center backdrop-blur-md bg-slate-600/50 z-10 rounded-3xl">
               <h2 className="text-5xl font-bold">Game Over</h2>
-              <p className="text-2xl">Your score: {score - 1}</p>
+              <p className="text-2xl">Your score: {score}</p>
               {!user && (
                 <p className="text-3xl">Sign in to save your scores!</p>
               )}

@@ -108,8 +108,12 @@ li {
   -moz-transform: scale(1.05);
 }
 
-.key:hover {
-  background: #7b7db3;
+.black-key:hover {
+  background: #7b7db3 !important;
+}
+
+.white-key:hover {
+  background: #b0b1da !important;
 }
 
 @media (prefers-color-scheme: dark) {
