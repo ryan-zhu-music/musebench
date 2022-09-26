@@ -97,7 +97,10 @@ const TestTuning: React.FC<Props> = ({ auth, user, signIn }) => {
           </header>
           <div className="w-full px-10 flex flex-row justify-center items-center">
             {["Reference", "Pitch"].map((name, i) => (
-              <div className="flex flex-col justify-center items-center mx-10">
+              <div
+                className="flex flex-col justify-center items-center mx-10"
+                key={`${name}-${i}`}
+              >
                 <h4>{name}</h4>
                 <button
                   className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300"
