@@ -2315,10 +2315,12 @@ react-is@^16.13.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-music-keyboard@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-music-keyboard/-/react-music-keyboard-1.0.3.tgz#6eb14113a759e2eb7247ff4c7bde1a5542b36c52"
-  integrity sha512-x/MOhdTq9xt8N5ViF1cP3HqsiEVl0zt7GtU0y9xaS0GIoiMW6T6wkyN8BgoPCDDbHn6C4pAHxie1VYQ4fFtwYg==
+react-music-keyboard@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-music-keyboard/-/react-music-keyboard-1.1.1.tgz#6d035d49dde76120b8105624d9fef10a9abf180c"
+  integrity sha512-2uXovP3tizenUVyAwzxlHyskvdmvjU4BP2DCwg7l52z4hB1L63JCz4X//xX4X55AK4Ga1zEm90WIHc2rB2z4tQ==
+  dependencies:
+    tone "^14.7.77"
 
 react@18.2.0:
   version "18.2.0"

@@ -129,18 +129,6 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
                   {score}
                 </p>
               </button>
-              <p className="font-medium text-2xl text-center mb-2">
-                Notes:
-                {userMelody.map((note: any, index: number) => (
-                  <span key={String(index) + note}>
-                    {" "}
-                    {note.slice(0, note.length - 1)}
-                    <span className="text-xs">
-                      {note.slice(note.length - 1)}
-                    </span>
-                  </span>
-                ))}
-              </p>
             </div>
           </div>
           <Keyboard
@@ -154,6 +142,8 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
             borderRadius={10}
             startNote="C3"
             endNote="B4"
+            sound={true}
+            duration={0.5}
             onKeyPress={(key) => {
               setUserMelody([...userMelody, key]);
             }}

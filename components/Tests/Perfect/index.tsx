@@ -121,6 +121,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
             blackKeyWidth={35}
             keySpacing={4}
             borderRadius={10}
+            sound={false}
             startNote="C3"
             endNote="B4"
             onKeyPress={(key) => {
