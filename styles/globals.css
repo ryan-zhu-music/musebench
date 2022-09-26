@@ -116,6 +116,30 @@ li {
   background: #b0b1da !important;
 }
 
+.higher-button {
+  filter: hue-rotate(230deg) saturate(2);
+}
+
+.higher-button:hover {
+  filter: hue-rotate(230deg) saturate(7);
+}
+
+.lower-button {
+  filter: hue-rotate(120deg) saturate(4);
+}
+
+.lower-button:hover {
+  filter: hue-rotate(120deg) saturate(15);
+}
+
+.play-button {
+  transition: 0.6s all;
+}
+
+.play-button:hover {
+  filter: brightness(0.7) saturate(3);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

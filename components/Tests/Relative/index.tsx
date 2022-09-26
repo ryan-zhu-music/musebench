@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Navbar from "../../Navbar";
 import { IoClose } from "react-icons/io5";
-import Audio from "../../Audio";
-import melodyGenerator from "../../../utils/relative";
 import { Keyboard } from "react-music-keyboard";
-import { random } from "../../../utils/random";
-import { allKeys } from "../../../data/keys";
-import PageHead from "../../PageHead";
+
+import Navbar from "../../Navbar";
 import Button from "../../Button";
+
+import melodyGenerator from "../../../utils/relative";
+import { playMelody } from "../../../utils/sound";
+import { random } from "../../../utils/random";
 import { getScores, updateScores } from "../../../utils/db";
+import { allKeys } from "../../../data/keys";
 interface Props {
   auth: any;
   user: any;
@@ -19,7 +20,6 @@ interface Props {
 const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
   const [mistakes, setMistakes] = useState(0);
   const [melody, setMelody] = useState(melodyGenerator(0, "C4", "major"));
-  const [isPlaying, setIsPlaying] = useState(false);
   const [levelState, setLevelState] = useState([0, "C4", "major"]);
   const [userMelody, setUserMelody] = useState<any>([]);
   const [score, setScore] = useState(0);
@@ -43,18 +43,15 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
       setLevelState(newLevel);
       setMelody(melodyGenerator(newLevel[0], newLevel[1], newLevel[2]));
       setUserMelody([]);
-      setIsPlaying(false);
     }
     if (mistakes >= 3) {
       setGameOver(true);
-
       if (user) {
         getScores(user.email).then((res) => {
           let scores = { ...res }.scores;
           if (score > scores.relative) {
             scores.relative = score;
             updateScores(user.email, scores);
-            console.log(user.email, scores);
           }
         });
       }
@@ -70,7 +67,6 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
       }}
     >
       <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
-      <PageHead />
       <div className="w-full h-full px-20">
         <div
           className="w-full h-full flex flex-col relative justify-around items-center rounded-3xl py-5"
@@ -97,12 +93,6 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
             </div>
           </header>
           <div>
-            <Audio
-              melody={melody}
-              isPlaying={isPlaying}
-              bpm={90}
-              setIsPlaying={setIsPlaying}
-            />
             <div className="flex flex-col justify-center items-center">
               <h4 className="pb-2 text-lg">
                 Key:{" "}
@@ -114,8 +104,8 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
                   levelState[2]}
               </h4>
               <button
-                className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300 hover:brightness-"
-                onClick={() => setIsPlaying(true)}
+                className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300"
+                onClick={() => playMelody(melody, 0.5)}
               >
                 <Image
                   src="/assets/icons/Play Button.png"
@@ -166,7 +156,6 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
                     setLevelState([0, "C4", "major"]);
                     setMelody(melodyGenerator(0, "C4", "major"));
                     setUserMelody([]);
-                    setIsPlaying(false);
                     setGameOver(false);
                   }}
                 />

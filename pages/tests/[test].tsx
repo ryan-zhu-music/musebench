@@ -13,8 +13,10 @@ import {
 import { firebaseConfig } from "../../utils/firebase";
 import { addUser } from "../../utils/db";
 
+import TestTuning from "../../components/Tests/Tuning";
 import TestPerfect from "../../components/Tests/Perfect";
 import TestRelative from "../../components/Tests/Relative";
+import PageHead from "../../components/PageHead";
 
 const Test: NextPage = () => {
   const app = initializeApp(firebaseConfig);
@@ -63,6 +65,8 @@ const Test: NextPage = () => {
 
   const switchPage = (page: any) => {
     switch (page) {
+      case "tuning":
+        return <TestTuning auth={auth} user={user} signIn={signIn} />;
       case "perfect":
         return <TestPerfect auth={auth} user={user} signIn={signIn} />;
       case "relative":
@@ -74,11 +78,7 @@ const Test: NextPage = () => {
 
   return (
     <main className="w-screen h-screen">
-      <Head>
-        <title>MuseBench</title>
-        <meta name="description" content="lorem ipsum" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <PageHead />
       {switchPage(test)}
     </main>
   );

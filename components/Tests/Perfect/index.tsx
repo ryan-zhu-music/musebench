@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
-import Audio from "../../Audio";
 import Navbar from "../../Navbar";
-import PageHead from "../../PageHead";
 
 import { Keyboard } from "react-music-keyboard";
 
 import { random } from "../../../utils/random";
+import { playSound } from "../../../utils/sound";
 import { allKeys } from "../../../data/keys";
 import Button from "../../Button";
 
@@ -25,7 +24,6 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
   const [score, setScore] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     if (mistakes >= 3) {
@@ -63,7 +61,6 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
         boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <PageHead />
       <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
       <div className="w-full h-full px-20">
         <div
@@ -91,8 +88,8 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
             </div>
           </header>
           <button
-            className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300 hover:brightness-"
-            onClick={() => setIsPlaying(true)}
+            className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300"
+            onClick={() => playSound(key, 0.7)}
           >
             <Image
               src="/assets/icons/Play Button.png"
@@ -106,12 +103,6 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
               {score}
             </p>
           </button>
-          <Audio
-            melody={[key, ""]}
-            isPlaying={isPlaying}
-            bpm={60}
-            setIsPlaying={setIsPlaying}
-          />
           <Keyboard
             height={120}
             blackKeyHeight={83}
@@ -141,7 +132,6 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
                 <Button
                   text="Retry"
                   onClick={() => {
-                    setIsPlaying(false);
                     setKey(allKeys[random(0, allKeys.length - 1)]);
                     setSelectedKey("");
                     setScore(0);
