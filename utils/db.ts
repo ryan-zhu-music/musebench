@@ -1,4 +1,4 @@
-import { doc, setDoc, updateDoc, collection, getDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const addUser = async (user: any, name: any, email: any) => {
@@ -8,9 +8,23 @@ export const addUser = async (user: any, name: any, email: any) => {
   });
 };
 
-export const updateScores = async (email: string, scores: any) => {
+export const updateScores = async (
+  email: string,
+  score: any,
+  test: string,
+  data: any
+) => {
+  let scores = { ...data };
+  if (score > scores[test].highScore) {
+    scores[test].highScore = score;
+  }
+  scores[test].attempts = scores[test].attempts + 1;
+  scores[test].total = scores[test].total + score;
+  console.log(scores);
   await updateDoc(doc(db, "users", email), {
     scores: scores,
+  }).catch((error) => {
+    console.log("Update error:", error);
   });
 };
 
@@ -19,21 +33,29 @@ export const getScores = async (email: string) => {
   try {
     const docSnap = await getDoc(docRef);
     const res = docSnap.data();
-    if (!res) {
+    if (!res || !res.scores) {
       throw "No data found";
     }
     return res;
   } catch (error) {
-    console.log(error);
-    return {
-      tuning: 0,
-      perfect: 0,
-      relative: 0,
-      interval: 0,
-      chord: 0,
-      count: 0,
-      tempo: 0,
-      bpm: 0,
-    };
+    console.log("Retrieve error:", error);
+    let scores = <any>{};
+    [
+      "tuning",
+      "perfect",
+      "relative",
+      "interval",
+      "chord",
+      "count",
+      "tempo",
+      "bpm",
+    ].forEach((key) => {
+      scores[key] = {
+        highScore: 0,
+        total: 0,
+        attempts: 0,
+      };
+    });
+    return scores;
   }
 };

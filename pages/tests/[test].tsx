@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { initializeApp } from "firebase/app";
@@ -18,6 +17,7 @@ import TestPerfect from "../../components/Tests/Perfect";
 import TestRelative from "../../components/Tests/Relative";
 import TestInterval from "../../components/Tests/Interval";
 import PageHead from "../../components/PageHead";
+import Navbar from "../../components/Navbar";
 
 const Test: NextPage = () => {
   const app = initializeApp(firebaseConfig);
@@ -67,20 +67,28 @@ const Test: NextPage = () => {
   const switchPage = (page: any) => {
     switch (page) {
       case "tuning":
-        return <TestTuning auth={auth} user={user} />;
+        return <TestTuning user={user} />;
       case "perfect":
-        return <TestPerfect auth={auth} user={user} />;
+        return <TestPerfect user={user} />;
       case "relative":
-        return <TestRelative auth={auth} user={user} />;
+        return <TestRelative user={user} />;
       case "interval":
-        return <TestInterval auth={auth} user={user} />;
+        return <TestInterval user={user} />;
       default:
         return <></>;
     }
   };
 
   return (
-    <main className="w-screen h-screen">
+    <main
+      className="w-screen h-screen pt-28 pb-10 flex flex-col"
+      style={{
+        background:
+          "linear-gradient(117.92deg, #17181B 4.93%, #3C3D70 47.36%, #1E1F48 57.8%, #05061F 92.37%)",
+        boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
+      }}
+    >
+      <Navbar auth={auth} signedIn={!!user} />
       <PageHead />
       {switchPage(test)}
     </main>
