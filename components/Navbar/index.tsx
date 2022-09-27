@@ -3,15 +3,14 @@ import Image from "next/image";
 import { FiMenu } from "react-icons/fi";
 import Button from "../Button";
 import Drawer from "./drawer";
-import { signOut } from "../../utils/firebase";
+import { signIn, signOutUser } from "../../utils/firebase";
 
 interface Props {
   auth: any;
   signedIn: boolean;
-  signIn: () => void;
 }
 
-const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
+const Navbar: React.FC<Props> = ({ auth, signedIn }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -23,7 +22,7 @@ const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
         signIn={signIn}
         isOpen={drawerOpen}
       />
-      <nav className="w-screen flex items-center justify-between flex-no-wrap bg-transparent py-10 px-20 fixed top-0 left-0">
+      <nav className="w-screen flex items-center justify-between flex-no-wrap bg-transparent py-10 px-20 sticky top-0 left-0">
         <button
           className="flex w-1/4 items-center justify-start flex-shrink-0 text-white"
           onClick={() => setDrawerOpen(true)}
@@ -44,7 +43,7 @@ const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
         <div className="flex w-1/4 items-center justify-end flex-shrink-0 text-white px-10">
           <Button
             text={signedIn ? "sign out" : "sign in"}
-            onClick={() => (signedIn ? signOut(auth) : signIn())}
+            onClick={() => (signedIn ? signOutUser(auth) : signIn())}
           />
         </div>
       </nav>

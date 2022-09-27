@@ -5,10 +5,9 @@ import Link from "next/link";
 interface Props {
   auth: any;
   user: any;
-  signIn: () => void;
 }
 
-const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
+const Dashboard: React.FC<Props> = ({ auth, user }) => {
   return (
     <main
       className="w-screen min-h-screen pb-10 flex flex-col justify-center items-center"
@@ -18,7 +17,7 @@ const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
         boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
+      <Navbar auth={auth} signedIn={!!user} />
       <div className="h-full flex flex-wrap w-screen justify-center items-center px-20">
         {tests.map((test) => (
           <Link href={`/tests/${test.title.toLowerCase()}`} key={test.title}>
