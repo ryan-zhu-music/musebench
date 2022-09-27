@@ -11,6 +11,7 @@ import { allKeys } from "../../../data/keys";
 import Button from "../../Button";
 
 import { getScores, updateScores } from "../../../utils/db";
+import GameOver from "../../GameOver";
 
 interface Props {
   auth: any;
@@ -122,25 +123,17 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
             blackKeyClass="black-key"
           />
           {gameOver && (
-            <div className="absolute w-full h-full flex flex-col items-center justify-center backdrop-blur-md bg-slate-600/50 z-10 rounded-3xl">
-              <h2 className="text-5xl font-bold">Game Over</h2>
-              <p className="text-2xl">Your score: {score}</p>
-              {!user && (
-                <p className="text-3xl">Sign in to save your scores!</p>
-              )}
-              <div className="my-5">
-                <Button
-                  text="Retry"
-                  onClick={() => {
-                    setKey(allKeys[random(0, allKeys.length - 1)]);
-                    setSelectedKey("");
-                    setScore(0);
-                    setMistakes(0);
-                    setGameOver(false);
-                  }}
-                />
-              </div>
-            </div>
+            <GameOver
+              user={user}
+              score={score}
+              onRetry={() => {
+                setKey(allKeys[random(0, allKeys.length - 1)]);
+                setSelectedKey("");
+                setScore(0);
+                setMistakes(0);
+                setGameOver(false);
+              }}
+            />
           )}
         </div>
       </div>

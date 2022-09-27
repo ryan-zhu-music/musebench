@@ -16,6 +16,7 @@ import { addUser } from "../../utils/db";
 import TestTuning from "../../components/Tests/Tuning";
 import TestPerfect from "../../components/Tests/Perfect";
 import TestRelative from "../../components/Tests/Relative";
+import TestInterval from "../../components/Tests/Interval";
 import PageHead from "../../components/PageHead";
 
 const Test: NextPage = () => {
@@ -71,6 +72,8 @@ const Test: NextPage = () => {
         return <TestPerfect auth={auth} user={user} signIn={signIn} />;
       case "relative":
         return <TestRelative auth={auth} user={user} signIn={signIn} />;
+      case "interval":
+        return <TestInterval auth={auth} user={user} signIn={signIn} />;
       default:
         return <></>;
     }

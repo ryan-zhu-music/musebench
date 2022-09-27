@@ -11,6 +11,7 @@ import { playMelody } from "../../../utils/sound";
 import { random } from "../../../utils/random";
 import { getScores, updateScores } from "../../../utils/db";
 import { allKeys } from "../../../data/keys";
+import GameOver from "../../GameOver";
 interface Props {
   auth: any;
   user: any;
@@ -105,7 +106,7 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
               </h4>
               <button
                 className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300"
-                onClick={() => playMelody(melody, 0.5)}
+                onClick={() => playMelody(melody)}
               >
                 <Image
                   src="/assets/icons/Play Button.png"
@@ -141,26 +142,18 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
             blackKeyClass="black-key"
           />
           {gameOver && (
-            <div className="absolute w-full h-full flex flex-col items-center justify-center backdrop-blur-md bg-slate-600/50 z-10 rounded-3xl">
-              <h2 className="text-5xl font-bold">Game Over</h2>
-              <p className="text-2xl">Your score: {score}</p>
-              {!user && (
-                <p className="text-3xl">Sign in to save your scores!</p>
-              )}
-              <div className="my-5">
-                <Button
-                  text="Retry"
-                  onClick={() => {
-                    setScore(0);
-                    setMistakes(0);
-                    setLevelState([0, "C4", "major"]);
-                    setMelody(melodyGenerator(0, "C4", "major"));
-                    setUserMelody([]);
-                    setGameOver(false);
-                  }}
-                />
-              </div>
-            </div>
+            <GameOver
+              user={user}
+              score={score}
+              onRetry={() => {
+                setScore(0);
+                setMistakes(0);
+                setLevelState([0, "C4", "major"]);
+                setMelody(melodyGenerator(0, "C4", "major"));
+                setUserMelody([]);
+                setGameOver(false);
+              }}
+            />
           )}
         </div>
       </div>

@@ -8,6 +8,7 @@ import Button from "../../Button";
 import { getScores, updateScores } from "../../../utils/db";
 import { playSound } from "../../../utils/sound";
 import { random } from "../../../utils/random";
+import GameOver from "../../GameOver";
 
 interface Props {
   auth: any;
@@ -148,24 +149,16 @@ const TestTuning: React.FC<Props> = ({ auth, user, signIn }) => {
           </div>
 
           {gameOver && (
-            <div className="absolute w-full h-full flex flex-col items-center justify-center backdrop-blur-md bg-slate-600/50 z-10 rounded-3xl">
-              <h2 className="text-5xl font-bold">Game Over</h2>
-              <p className="text-2xl">Your score: {score}</p>
-              {!user && (
-                <p className="text-3xl">Sign in to save your scores!</p>
-              )}
-              <div className="my-5">
-                <Button
-                  text="Retry"
-                  onClick={() => {
-                    setScore(0);
-                    setMistakes(0);
+            <GameOver
+              user={user}
+              score={score}
+              onRetry={() => {
+                setScore(0);
+                setMistakes(0);
 
-                    setGameOver(false);
-                  }}
-                />
-              </div>
-            </div>
+                setGameOver(false);
+              }}
+            />
           )}
         </div>
       </div>
