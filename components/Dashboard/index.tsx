@@ -11,7 +11,7 @@ interface Props {
 const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
   return (
     <main
-      className="w-screen min-h-screen pb-10"
+      className="w-screen min-h-screen pb-10 flex flex-col justify-center items-center"
       style={{
         background:
           "linear-gradient(117.92deg, #17181B 4.93%, #3C3D70 47.36%, #1E1F48 57.8%, #05061F 92.37%)",
@@ -19,7 +19,7 @@ const Dashboard: React.FC<Props> = ({ auth, user, signIn }) => {
       }}
     >
       <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
-      <div className="flex flex-wrap w-screen justify-center items-center px-20">
+      <div className="h-full flex flex-wrap w-screen justify-center items-center px-20">
         {tests.map((test) => (
           <Link href={`/tests/${test.title.toLowerCase()}`} key={test.title}>
             <div

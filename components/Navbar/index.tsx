@@ -23,8 +23,7 @@ const Navbar: React.FC<Props> = ({ auth, signedIn, signIn }) => {
         signIn={signIn}
         isOpen={drawerOpen}
       />
-
-      <nav className="w-screen flex items-center justify-between flex-no-wrap bg-transparent py-10 px-20">
+      <nav className="w-screen flex items-center justify-between flex-no-wrap bg-transparent py-10 px-20 fixed top-0 left-0">
         <button
           className="flex w-1/4 items-center justify-start flex-shrink-0 text-white"
           onClick={() => setDrawerOpen(true)}
