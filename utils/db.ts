@@ -28,7 +28,7 @@ export const updateScores = async (
   });
 };
 
-export const getScores = async (email: string) => {
+export const getScores = async (email: any) => {
   const docRef = doc(db, "users", email);
   try {
     const docSnap = await getDoc(docRef);
@@ -36,7 +36,7 @@ export const getScores = async (email: string) => {
     if (!res || !res.scores) {
       throw "No data found";
     }
-    return res;
+    return res.scores;
   } catch (error) {
     console.log("Retrieve error:", error);
     let scores = <any>{};

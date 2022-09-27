@@ -21,7 +21,7 @@ const About: NextPage = () => {
 
   return (
     <main
-      className="w-screen h-screen pb-10 flex flex-col"
+      className="w-screen h-screen pt-32 pb-10 flex flex-col"
       style={{
         background:
           "linear-gradient(117.92deg, #17181B 4.93%, #3C3D70 47.36%, #1E1F48 57.8%, #05061F 92.37%)",

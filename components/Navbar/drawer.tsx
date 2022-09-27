@@ -24,7 +24,7 @@ const Drawer: React.FC<Props> = ({
     <>
       <nav
         className={`float-left absolute bg-slate-800/30 transition-all duration-700 ease-out z-50 ${
-          isOpen ? "left-0 backdrop-blur-lg" : "-left-full bg-transparent"
+          isOpen ? "left-0 backdrop-blur-md" : "-left-full bg-transparent"
         }`}
       >
         <div className="h-screen w-screen md:w-[400px] flex flex-col p-6">
@@ -40,7 +40,7 @@ const Drawer: React.FC<Props> = ({
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/profile">
                 <a className="glow text-2xl lg:text-3xl">Profile</a>
               </Link>
             </li>
