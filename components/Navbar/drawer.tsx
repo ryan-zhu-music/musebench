@@ -1,7 +1,7 @@
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 import Button from "../Button";
-import { signOut } from "../../utils/firebase";
+import { signOutUser } from "../../utils/firebase";
 
 import { tests } from "../../data/tests";
 
@@ -23,11 +23,11 @@ const Drawer: React.FC<Props> = ({
   return (
     <>
       <nav
-        className={`float-left absolute bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out z-20 ${
-          isOpen ? "left-0" : "-left-[400px]"
+        className={`float-left absolute bg-slate-800/30 transition-all duration-700 ease-out z-50 ${
+          isOpen ? "left-0 backdrop-blur-lg" : "-left-full bg-transparent"
         }`}
       >
-        <div className="h-screen w-[400px] flex flex-col p-6">
+        <div className="h-screen w-screen md:w-[400px] flex flex-col p-6">
           <div className="w-full flex justify-end items-center">
             <button onClick={onClose}>
               <IoClose size={40} className="glow" />
@@ -36,35 +36,35 @@ const Drawer: React.FC<Props> = ({
           <ul className="w-full h-full flex flex-col justify-evenly items-start pl-4">
             <li>
               <Link href="/">
-                <a className="glow">Home</a>
+                <a className="glow text-2xl lg:text-3xl">Home</a>
               </Link>
             </li>
             <li>
               <Link href="/">
-                <a className="glow">Profile</a>
+                <a className="glow text-2xl lg:text-3xl">Profile</a>
               </Link>
             </li>
             <li>
               <Link href="/about">
-                <a className="glow">About</a>
+                <a className="glow text-2xl lg:text-3xl">About</a>
               </Link>
             </li>
             <li className="h-1/2">
-              <a className="mb-2 glow">Tests</a>
-              <ul className="flex flex-col justify-between items-start pl-10 pt-2">
+              <a className="mb-2 glow text-2xl lg:text-3xl">Tests</a>
+              <ul className="flex flex-col h-4/5 justify-evenly items-start pl-10 pt-2">
                 {tests.map((test) => (
                   <li key={test.title}>
                     <Link href={"/tests" + test.link}>
-                      <a className="text-lg glow">{test.title}</a>
+                      <a className="text-lg lg:text-2xl glow">{test.title}</a>
                     </Link>
                   </li>
                 ))}
               </ul>
             </li>
-            <li>
+            <li className="w-1/2">
               <Button
                 text={signedIn ? "sign out" : "sign in"}
-                onClick={() => (signedIn ? signOut(auth) : signIn())}
+                onClick={() => (signedIn ? signOutUser(auth) : signIn())}
               />
             </li>
           </ul>

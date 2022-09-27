@@ -40,7 +40,7 @@ const About: NextPage = () => {
           }}
         >
           <h1 className="w-full text-center">About</h1>
-          <div className="w-full h-full px-16 flex flex-col text-center justify-evenly items-center">
+          <div className="w-full h-full px-16 pb-6 flex flex-col text-center justify-evenly items-center">
             <p className="text-md text-normal">
               MUSEBENCH is an interactive digital benchmark tool for training
               your musical skills through your ears.

@@ -27,7 +27,7 @@ const Home: NextPage = () => {
   }, [user]);
 
   return (
-    <main className="w-screen h-screen">
+    <main className="w-screen min-h-screen flex flex-col justify-start">
       <PageHead />
       <Dashboard auth={auth} user={user} />
     </main>
