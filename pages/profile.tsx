@@ -5,19 +5,16 @@ import PageHead from "../components/PageHead";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import Button from "../components/Button";
 import { getScores } from "../utils/db";
 
 const Profile: NextPage = () => {
   const [user, setUser] = useState<any>(null);
   const [scores, setScores] = useState<any>(null);
-  const [userName, setUserName] = useState<any>("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setUserName(user.displayName);
         getScores(user.email).then((res) => {
           setScores(res);
         });
@@ -49,33 +46,18 @@ const Profile: NextPage = () => {
         >
           <h1 className="w-full text-center">Profile</h1>
           <div className="w-full flex flex-row justify-around items-center px-20 mt-4 mb-8">
-            <input
-              className="rounded-full h-[40px] w-2/5 px-5"
-              type="text"
-              value={userName}
-              onChange={(event) => {
-                setUserName(event.target.value);
-              }}
+            <div
+              className="rounded-full h-[40px] w-2/5 px-5 flex flex-row justify-start items-center bg-slate-600/20"
               style={{
-                background: "rgba(63, 71, 101, 0.23)",
                 boxShadow:
                   "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
               }}
-            />
-            <div className="w-1/6 h-[40px]">
-              <Button
-                text="Save"
-                onClick={() => {
-                  user.updateProfile({
-                    displayName: userName,
-                  });
-                }}
-              />
+            >
+              <p>{user && user.displayName}</p>
             </div>
             <div
-              className="rounded-full h-[40px] w-2/5 px-5 flex flex-row justify-start items-center"
+              className="rounded-full h-[40px] w-2/5 px-5 flex flex-row justify-start items-center bg-slate-600/20"
               style={{
-                background: "rgba(63, 71, 101, 0.23)",
                 boxShadow:
                   "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
               }}
@@ -83,9 +65,9 @@ const Profile: NextPage = () => {
               <p>{user && user.email}</p>
             </div>
           </div>
-          <div className="w-full px-20">
+          <div className="w-full px-20 flex justify-center items-center pb-8">
             {!!scores ? (
-              <div className="w-full flex flex-row flex-wrap justify-center items-center p-4 rounded-2xl bg-slate-600/20">
+              <div className="w-full flex flex-row flex-wrap justify-center items-center p-4 rounded-2xl border-glow">
                 <table className="w-full">
                   <thead className="">
                     <tr>
@@ -102,7 +84,10 @@ const Profile: NextPage = () => {
                       (_, index: number) => {
                         const test: any = Object.keys(scores)[index];
                         return (
-                          <tr key={test + String(index)}>
+                          <tr
+                            key={test + String(index)}
+                            className="hover:bg-slate-300/30 duration-300 glow"
+                          >
                             <th className="uppercase">{test}</th>
                             <td>{scores[test].highScore}</td>
                             <td>{scores[test].total}</td>

@@ -41,31 +41,32 @@ export const tests = [
       "Intervals may be played harmonically starting at level 10.",
     ],
   },
-];
-
-const WIP_tests = [
   {
     title: "Chord",
     subtitle: "Identify the progressions.",
     link: "/chord",
     image: "/assets/icons/Chord.png",
+    underConstruction: true,
   },
   {
     title: "Count",
     subtitle: "How many notes do you hear?",
     link: "/count",
     image: "/assets/icons/Count.png",
+    underConstruction: true,
   },
   {
     title: "Tempo",
     subtitle: "Can you maintain a tempo?",
     link: "/tempo",
     image: "/assets/icons/Tempo.png",
+    underConstruction: true,
   },
   {
     title: "BPM",
     subtitle: "What's the beats per minute?'",
     link: "/bpm",
     image: "/assets/icons/BPM.png",
+    underConstruction: true,
   },
 ];
