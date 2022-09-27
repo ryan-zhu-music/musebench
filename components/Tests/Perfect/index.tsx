@@ -17,10 +17,9 @@ import Info from "../../Info";
 interface Props {
   auth: any;
   user: any;
-  signIn: () => void;
 }
 
-const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
+const TestPerfect: React.FC<Props> = ({ auth, user }) => {
   const [key, setKey] = useState(allKeys[random(0, allKeys.length - 1)]);
   const [selectedKey, setSelectedKey] = useState("");
   const [score, setScore] = useState(0);
@@ -64,7 +63,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
         boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
+      <Navbar auth={auth} signedIn={!!user} />
       <div className="w-full h-full px-20">
         <div
           className="w-full h-full flex flex-col relative justify-center items-center rounded-3xl"

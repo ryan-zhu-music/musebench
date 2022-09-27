@@ -3,7 +3,6 @@ import { getFirestore } from "firebase/firestore";
 import {
   signOut,
   getAuth,
-  onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";

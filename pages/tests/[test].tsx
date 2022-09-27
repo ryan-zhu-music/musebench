@@ -67,13 +67,13 @@ const Test: NextPage = () => {
   const switchPage = (page: any) => {
     switch (page) {
       case "tuning":
-        return <TestTuning auth={auth} user={user} signIn={signIn} />;
+        return <TestTuning auth={auth} user={user} />;
       case "perfect":
-        return <TestPerfect auth={auth} user={user} signIn={signIn} />;
+        return <TestPerfect auth={auth} user={user} />;
       case "relative":
-        return <TestRelative auth={auth} user={user} signIn={signIn} />;
+        return <TestRelative auth={auth} user={user} />;
       case "interval":
-        return <TestInterval auth={auth} user={user} signIn={signIn} />;
+        return <TestInterval auth={auth} user={user} />;
       default:
         return <></>;
     }

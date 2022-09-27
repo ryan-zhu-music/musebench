@@ -14,10 +14,9 @@ import Info from "../../Info";
 interface Props {
   auth: any;
   user: any;
-  signIn: () => void;
 }
 
-const TestInterval: React.FC<Props> = ({ auth, user, signIn }) => {
+const TestInterval: React.FC<Props> = ({ auth, user }) => {
   const [mistakes, setMistakes] = useState(0);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -97,7 +96,7 @@ const TestInterval: React.FC<Props> = ({ auth, user, signIn }) => {
         boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
+      <Navbar auth={auth} signedIn={!!user} />
       <div className="w-full h-full px-20">
         <div
           className="w-full h-full flex flex-col relative justify-around items-center rounded-3xl py-5"

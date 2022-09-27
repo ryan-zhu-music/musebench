@@ -16,10 +16,9 @@ import GameOver from "../../GameOver";
 interface Props {
   auth: any;
   user: any;
-  signIn: () => void;
 }
 
-const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
+const TestRelative: React.FC<Props> = ({ auth, user }) => {
   const [mistakes, setMistakes] = useState(0);
   const [melody, setMelody] = useState(melodyGenerator(0, "C4", "major"));
   const [levelState, setLevelState] = useState([0, "C4", "major"]);
@@ -69,7 +68,7 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
         boxShadow: "inset 0px 0px 250px rgba(0, 0, 0, 0.6)",
       }}
     >
-      <Navbar auth={auth} signedIn={!!user} signIn={signIn} />
+      <Navbar auth={auth} signedIn={!!user} />
       <div className="w-full h-full px-20">
         <div
           className="w-full h-full flex flex-col relative justify-around items-center rounded-3xl py-5"
