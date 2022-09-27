@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { FaQuestion } from "react-icons/fa";
 import Image from "next/image";
 import Navbar from "../../Navbar";
 
@@ -8,10 +9,10 @@ import { Keyboard } from "react-music-keyboard";
 import { random } from "../../../utils/random";
 import { playSound } from "../../../utils/sound";
 import { allKeys } from "../../../data/keys";
-import Button from "../../Button";
 
 import { getScores, updateScores } from "../../../utils/db";
 import GameOver from "../../GameOver";
+import Info from "../../Info";
 
 interface Props {
   auth: any;
@@ -25,6 +26,7 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
   const [score, setScore] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
     if (mistakes >= 3) {
@@ -72,8 +74,16 @@ const TestPerfect: React.FC<Props> = ({ auth, user, signIn }) => {
               "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
           }}
         >
-          <header className="w-full flex items-center justify-between px-5">
-            <div className="w-1/5" />
+          {infoOpen && (
+            <Info title="Tuning" onClose={() => setInfoOpen(false)} />
+          )}
+          <header className="w-full flex items-start justify-between px-5">
+            <button className="w-1/5 pl-10" onClick={() => setInfoOpen(true)}>
+              <FaQuestion
+                size={30}
+                className="text-indigo-200/40 hover:text-indigo-200/60 duration-200 glow"
+              />
+            </button>
             <div className="flex flex-col items-center justify-center w-3/5">
               <h1 className="">Perfect</h1>
               <p>{"What's the pitch of the note?"}</p>

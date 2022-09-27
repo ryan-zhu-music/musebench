@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
+import { FaQuestion } from "react-icons/fa";
 import { Keyboard } from "react-music-keyboard";
 
 import Navbar from "../../Navbar";
-import Button from "../../Button";
+import Info from "../../Info";
 
 import melodyGenerator from "../../../utils/relative";
 import { playMelody } from "../../../utils/sound";
@@ -25,6 +26,7 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
   const [userMelody, setUserMelody] = useState<any>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
     if (userMelody.length === melody.length - 1) {
@@ -77,8 +79,16 @@ const TestRelative: React.FC<Props> = ({ auth, user, signIn }) => {
               "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
           }}
         >
+          {infoOpen && (
+            <Info title="Tuning" onClose={() => setInfoOpen(false)} />
+          )}
           <header className="w-full flex items-start justify-between px-5">
-            <div className="w-1/5" />
+            <button className="w-1/5 pl-10" onClick={() => setInfoOpen(true)}>
+              <FaQuestion
+                size={30}
+                className="text-indigo-200/40 hover:text-indigo-200/60 duration-200 glow"
+              />
+            </button>
             <div className="flex flex-col items-center justify-center w-3/5">
               <h1>Relative</h1>
               <p>{"Play back a melody!"}</p>

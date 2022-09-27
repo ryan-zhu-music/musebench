@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
+import { FaQuestion } from "react-icons/fa";
 
 import Navbar from "../../Navbar";
-import Button from "../../Button";
 
 import { getScores, updateScores } from "../../../utils/db";
 import { playSound } from "../../../utils/sound";
 import { random } from "../../../utils/random";
+import Info from "../../Info";
 import GameOver from "../../GameOver";
 
 interface Props {
@@ -22,6 +23,8 @@ const TestTuning: React.FC<Props> = ({ auth, user, signIn }) => {
   const [gameOver, setGameOver] = useState(false);
   const [frequencies, setFrequencies] = useState<any>([]);
   const [guess, setGuess] = useState("");
+
+  const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
     const f1 = random(400, 600);
@@ -79,8 +82,16 @@ const TestTuning: React.FC<Props> = ({ auth, user, signIn }) => {
               "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
           }}
         >
+          {infoOpen && (
+            <Info title="Tuning" onClose={() => setInfoOpen(false)} />
+          )}
           <header className="w-full flex items-start justify-between px-5">
-            <div className="w-1/5" />
+            <button className="w-1/5 pl-10" onClick={() => setInfoOpen(true)}>
+              <FaQuestion
+                size={30}
+                className="text-indigo-200/40 hover:text-indigo-200/60 duration-200 glow"
+              />
+            </button>
             <div className="flex flex-col items-center justify-center w-3/5">
               <h1>Tuning</h1>
               <p>{"Is the pitch higher or lower?"}</p>
