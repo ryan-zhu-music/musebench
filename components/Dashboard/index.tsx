@@ -28,11 +28,11 @@ const Dashboard: React.FC<Props> = ({ auth, user }) => {
             key={test.title}
           >
             <div
-              className="relative flex flex-col items-center justify-center h-[200px] w-[275px] md:h-[275px] border-glow m-2 px-4 py-2 cursor-pointer hover:bg-indigo-300/20"
+              className="relative flex flex-col items-center justify-center h-[250px] w-[275px] md:h-[275px] border-glow m-2 px-4 py-3 cursor-pointer hover:bg-indigo-300/20"
               key={test.title}
             >
               <div className={`${test.underConstruction && "blur-md"}`}>
-                <div className="h-1/3 md:h-1/2 flex flex-col justify-end relative ">
+                <div className="h-1/2 flex flex-col justify-end">
                   <Image
                     src={test.image}
                     alt={test.title}
@@ -42,7 +42,7 @@ const Dashboard: React.FC<Props> = ({ auth, user }) => {
                     height={140}
                   />
                 </div>
-                <div className="flex flex-col items-center justify-start">
+                <div className="h-1/2 flex flex-col items-center justify-start">
                   <h3 className="text-center text-white">{test.title}</h3>
                   <h4 className="text-center text-white">{test.subtitle}</h4>
                 </div>

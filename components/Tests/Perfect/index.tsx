@@ -13,6 +13,7 @@ import GameOver from "../../GameOver";
 import Info from "../../Info";
 import Mistakes from "../../Mistakes";
 
+import useWindowSize from "../../../hooks/useWindowSize";
 interface Props {
   user: any;
 }
@@ -24,6 +25,8 @@ const TestPerfect: React.FC<Props> = ({ user }) => {
   const [mistakes, setMistakes] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
+
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     if (mistakes >= 3) {
@@ -57,7 +60,9 @@ const TestPerfect: React.FC<Props> = ({ user }) => {
             "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
         }}
       >
-        {infoOpen && <Info title="Tuning" onClose={() => setInfoOpen(false)} />}
+        {infoOpen && (
+          <Info title="Perfect" onClose={() => setInfoOpen(false)} />
+        )}
         <header className="w-full flex flex-wrap items-start justify-between px-2 md:px-5">
           <button
             className="w-1/6 md:w-1/5 pl-5 md:pl-10"
@@ -69,11 +74,10 @@ const TestPerfect: React.FC<Props> = ({ user }) => {
             />
           </button>
           <div className="flex flex-col items-center justify-center w-2/3 md:w-3/5">
-            <h1 className="text-2xl md:text-4xl">Tuning</h1>
+            <h1 className="text-2xl md:text-4xl">Perfect</h1>
             <p className="text-center w-5/6">
-              {"Is the pitch higher or lower?"}
+              {"Identify the note being played."}
             </p>
-            <h3>{score}</h3>
           </div>
           <div className="w-1/6 md:w-0" />
           <Mistakes mistakes={mistakes} />
@@ -94,18 +98,39 @@ const TestPerfect: React.FC<Props> = ({ user }) => {
             {score}
           </p>
         </button>
+        {width < 600 && (
+          <Keyboard
+            height={80}
+            blackKeyHeight={55}
+            blackKeyColor="#3C3D70"
+            whiteKeyColor="#cbd5e1"
+            whiteKeyWidth={34}
+            blackKeyWidth={28}
+            keySpacing={3}
+            borderRadius={10}
+            sound={false}
+            startNote="C4"
+            endNote="B4"
+            onKeyPress={(key) => {
+              setSelectedKey(key);
+            }}
+            whiteKeyClass="white-key"
+            blackKeyClass="black-key"
+            containerStyles={{ marginBottom: 10 }}
+          />
+        )}
         <Keyboard
-          height={120}
-          blackKeyHeight={83}
+          height={width < 600 ? 80 : 115}
+          blackKeyHeight={width < 600 ? 55 : 80}
           blackKeyColor="#3C3D70"
           whiteKeyColor="#cbd5e1"
-          whiteKeyWidth={40}
-          blackKeyWidth={35}
-          keySpacing={4}
+          whiteKeyWidth={34}
+          blackKeyWidth={28}
+          keySpacing={3}
           borderRadius={10}
           sound={false}
           startNote="C3"
-          endNote="B4"
+          endNote={width < 600 ? "B3" : "B4"}
           onKeyPress={(key) => {
             setSelectedKey(key);
           }}

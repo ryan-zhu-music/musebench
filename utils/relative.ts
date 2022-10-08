@@ -36,10 +36,11 @@ const melodyGenerator = (stage: any, key: any, tonality: any) => {
       let transposedMelody = melody.map(
         (note: number) => allKeys[note + transposition]
       );
-      transposedMelody.push("");
+      if (transposedMelody.some((note: string) => note == undefined)) {
+        continue;
+      }
       return transposedMelody;
     } catch (error) {
-      // melody is out of range
       console.log(error);
     }
   }

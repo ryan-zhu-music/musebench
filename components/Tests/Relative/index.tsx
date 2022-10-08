@@ -12,6 +12,9 @@ import { random } from "../../../utils/random";
 import { getScores, updateScores } from "../../../utils/db";
 import { allKeys } from "../../../data/keys";
 import GameOver from "../../GameOver";
+
+import useWindowSize from "../../../hooks/useWindowSize";
+import Mistakes from "../../Mistakes";
 interface Props {
   user: any;
 }
@@ -25,8 +28,10 @@ const TestRelative: React.FC<Props> = ({ user }) => {
   const [gameOver, setGameOver] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
 
+  const { width, height } = useWindowSize();
+
   useEffect(() => {
-    if (userMelody.length === melody.length - 1) {
+    if (userMelody.length === melody.length) {
       if (
         !userMelody.every((note: any, index: number) => note === melody[index])
       ) {
@@ -53,8 +58,9 @@ const TestRelative: React.FC<Props> = ({ user }) => {
       }
     }
   }, [userMelody]);
+
   return (
-    <main className="w-full h-full px-20">
+    <main className="w-full h-full px-5 md:px-20">
       <div
         className="w-full h-full flex flex-col relative justify-around items-center rounded-3xl py-5"
         style={{
@@ -63,27 +69,25 @@ const TestRelative: React.FC<Props> = ({ user }) => {
             "0px 0px 40px rgba(121, 159, 255, 0.4), 0px 0px 5px 1px rgba(219, 225, 255, 0.75)",
         }}
       >
-        {infoOpen && <Info title="Tuning" onClose={() => setInfoOpen(false)} />}
-        <header className="w-full flex items-start justify-between px-5">
-          <button className="w-1/5 pl-10" onClick={() => setInfoOpen(true)}>
+        {infoOpen && (
+          <Info title="Perfect" onClose={() => setInfoOpen(false)} />
+        )}
+        <header className="w-full flex flex-wrap items-start justify-between px-2 md:px-5">
+          <button
+            className="w-1/6 md:w-1/5 pl-5 md:pl-10"
+            onClick={() => setInfoOpen(true)}
+          >
             <FaQuestion
               size={30}
               className="text-indigo-200/40 hover:text-indigo-200/60 duration-200 glow"
             />
           </button>
-          <div className="flex flex-col items-center justify-center w-3/5">
-            <h1>Relative</h1>
-            <p>{"Play back a melody!"}</p>
+          <div className="flex flex-col items-center justify-center w-2/3 md:w-3/5">
+            <h1 className="text-2xl md:text-4xl">Relative</h1>
+            <p className="text-center w-5/6">{"Play back a melody!"}</p>
           </div>
-          <div className="flex flex-col items-end w-1/5 pr-10">
-            {Array.from({ length: 3 }, (_, i) => (
-              <IoClose
-                size={40}
-                key={i}
-                className={i < mistakes ? "text-red-300" : "text-slate-200"}
-              />
-            ))}
-          </div>
+          <div className="w-1/6 md:w-0" />
+          <Mistakes mistakes={mistakes} />
         </header>
         <div>
           <div className="flex flex-col justify-center items-center">
@@ -114,19 +118,39 @@ const TestRelative: React.FC<Props> = ({ user }) => {
             </button>
           </div>
         </div>
+        {width < 600 && (
+          <Keyboard
+            height={80}
+            blackKeyHeight={55}
+            blackKeyColor="#3C3D70"
+            whiteKeyColor="#cbd5e1"
+            whiteKeyWidth={34}
+            blackKeyWidth={28}
+            keySpacing={3}
+            borderRadius={10}
+            sound={true}
+            startNote="C4"
+            endNote="B4"
+            onKeyPress={(key) => {
+              setUserMelody([...userMelody, key]);
+            }}
+            whiteKeyClass="white-key"
+            blackKeyClass="black-key"
+            containerStyles={{ marginBottom: 10 }}
+          />
+        )}
         <Keyboard
-          height={120}
-          blackKeyHeight={83}
+          height={width < 600 ? 80 : 115}
+          blackKeyHeight={width < 600 ? 55 : 80}
           blackKeyColor="#3C3D70"
           whiteKeyColor="#cbd5e1"
-          whiteKeyWidth={40}
-          blackKeyWidth={35}
-          keySpacing={4}
+          whiteKeyWidth={34}
+          blackKeyWidth={28}
+          keySpacing={3}
           borderRadius={10}
-          startNote="C3"
-          endNote="B4"
           sound={true}
-          duration={0.5}
+          startNote="C3"
+          endNote={width < 600 ? "B3" : "B4"}
           onKeyPress={(key) => {
             setUserMelody([...userMelody, key]);
           }}

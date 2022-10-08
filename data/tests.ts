@@ -13,7 +13,7 @@ export const tests = [
   },
   {
     title: "Perfect",
-    subtitle: "What is the pitch of the note?",
+    subtitle: "Identify the note being played.",
     link: "/perfect",
     image: "/assets/icons/Perfect.png",
     description: [
@@ -32,7 +32,7 @@ export const tests = [
   },
   {
     title: "Interval",
-    subtitle: "Name the harmonic and melodic intervals.",
+    subtitle: "Identify the intervals.",
     link: "/interval",
     image: "/assets/icons/Interval.png",
     description: [

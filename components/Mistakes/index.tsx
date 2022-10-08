@@ -1,7 +1,10 @@
 import useWindowSize from "../../hooks/useWindowSize";
 import { IoClose } from "react-icons/io5";
 
-const Mistakes = (mistakes: any) => {
+type Props = {
+  mistakes: number;
+};
+const Mistakes: React.FC<Props> = ({ mistakes }) => {
   const { width } = useWindowSize();
   return (
     <div className="flex flex-row md:flex-col items-end justify-center w-full md:w-1/5 md:pr-10">
