@@ -52,13 +52,15 @@ const Drawer: React.FC<Props> = ({
             <li className="h-1/2">
               <a className="mb-2 glow text-2xl">Tests</a>
               <ul className="flex flex-col h-4/5 justify-evenly items-start pl-10 pt-2">
-                {tests.map((test) => (
-                  <li key={test.title}>
-                    <Link href={"/tests" + test.link}>
-                      <a className="text-lg glow">{test.title}</a>
-                    </Link>
-                  </li>
-                ))}
+                {tests.map((test) =>
+                  test.underConstruction ? null : (
+                    <li key={test.title}>
+                      <Link href={"/tests" + test.link}>
+                        <a className="text-lg glow">{test.title}</a>
+                      </Link>
+                    </li>
+                  )
+                )}
               </ul>
             </li>
             <li className="w-1/2">

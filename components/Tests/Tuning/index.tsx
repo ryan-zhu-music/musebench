@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { IoClose } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa";
 
 import { getScores, updateScores } from "../../../utils/db";
@@ -8,6 +7,9 @@ import { playSound } from "../../../utils/sound";
 import { random } from "../../../utils/random";
 import Info from "../../Info";
 import GameOver from "../../GameOver";
+import Mistakes from "../../Mistakes";
+
+import useWindowSize from "../../../hooks/useWindowSize";
 
 interface Props {
   user: any;
@@ -21,6 +23,8 @@ const TestTuning: React.FC<Props> = ({ user }) => {
   const [guess, setGuess] = useState("");
 
   const [infoOpen, setInfoOpen] = useState(false);
+
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     const f1 = random(400, 600);
@@ -56,7 +60,7 @@ const TestTuning: React.FC<Props> = ({ user }) => {
   }, [guess]);
 
   return (
-    <main className="w-full h-full px-20">
+    <main className="w-full h-full px-5 md:px-20">
       <div
         className="w-full h-full flex flex-col relative justify-around items-center rounded-3xl py-5"
         style={{
@@ -66,37 +70,35 @@ const TestTuning: React.FC<Props> = ({ user }) => {
         }}
       >
         {infoOpen && <Info title="Tuning" onClose={() => setInfoOpen(false)} />}
-        <header className="w-full flex items-start justify-between px-5">
-          <button className="w-1/5 pl-10" onClick={() => setInfoOpen(true)}>
+        <header className="w-full flex flex-wrap items-start justify-between px-2 md:px-5">
+          <button
+            className="w-1/6 md:w-1/5 pl-5 md:pl-10"
+            onClick={() => setInfoOpen(true)}
+          >
             <FaQuestion
               size={30}
               className="text-indigo-200/40 hover:text-indigo-200/60 duration-200 glow"
             />
           </button>
-          <div className="flex flex-col items-center justify-center w-3/5">
-            <h1>Tuning</h1>
-            <p>{"Is the pitch higher or lower?"}</p>
+          <div className="flex flex-col items-center justify-center w-2/3 md:w-3/5">
+            <h1 className="text-2xl md:text-4xl">Tuning</h1>
+            <p className="text-center w-5/6">
+              {"Is the pitch higher or lower?"}
+            </p>
             <h3>{score}</h3>
           </div>
-          <div className="flex flex-col items-end w-1/5 pr-10">
-            {Array.from({ length: 3 }, (_, i) => (
-              <IoClose
-                size={40}
-                key={i}
-                className={i < mistakes ? "text-red-300" : "text-slate-200"}
-              />
-            ))}
-          </div>
+          <div className="w-1/6 md:w-0" />
+          <Mistakes mistakes={mistakes} />
         </header>
-        <div className="w-full px-10 flex flex-row justify-center items-center">
+        <div className="w-full px-10 flex flex-row h-1/3 justify-center items-center">
           {["Reference", "Pitch"].map((name, i) => (
             <div
-              className="flex flex-col justify-center items-center mx-10"
+              className="flex flex-col w-1/5 h-full justify-center items-center mx-5 md:mx-10"
               key={`${name}-${i}`}
             >
-              <h4>{name}</h4>
+              <h4 className="text-lg md:text-2xl">{name}</h4>
               <button
-                className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300"
+                className="p-3 mb-2 w-full h-full relative flex flex-col items-center justify-center duration-300"
                 onClick={() => playSound(frequencies[i], 0.5)}
               >
                 <Image
@@ -104,14 +106,14 @@ const TestTuning: React.FC<Props> = ({ user }) => {
                   alt="Play Button"
                   className="object-contain h-full w-full play-button"
                   layout="intrinsic"
-                  width={60}
-                  height={60}
+                  width={90}
+                  height={90}
                 />
               </button>
             </div>
           ))}
         </div>
-        <div className="w-full px-10 flex flex-row justify-center items-center">
+        <div className="w-full px-10 h-1/4 flex flex-row justify-center items-center">
           <button
             className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300 -rotate-90 higher-button"
             onClick={() => setGuess("higher")}
@@ -121,8 +123,8 @@ const TestTuning: React.FC<Props> = ({ user }) => {
               alt="Play Button"
               className="object-contain h-full w-full"
               layout="intrinsic"
-              width={60}
-              height={60}
+              width={90}
+              height={90}
             />
           </button>
           <button
@@ -134,8 +136,8 @@ const TestTuning: React.FC<Props> = ({ user }) => {
               alt="Play Button"
               className="object-contain h-full w-full"
               layout="intrinsic"
-              width={60}
-              height={60}
+              width={90}
+              height={90}
             />
           </button>
         </div>

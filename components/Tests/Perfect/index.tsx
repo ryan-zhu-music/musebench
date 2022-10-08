@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { IoClose } from "react-icons/io5";
 import { FaQuestion } from "react-icons/fa";
 import Image from "next/image";
 
@@ -12,6 +11,7 @@ import { allKeys } from "../../../data/keys";
 import { getScores, updateScores } from "../../../utils/db";
 import GameOver from "../../GameOver";
 import Info from "../../Info";
+import Mistakes from "../../Mistakes";
 
 interface Props {
   user: any;
@@ -48,9 +48,9 @@ const TestPerfect: React.FC<Props> = ({ user }) => {
   }, [selectedKey]);
 
   return (
-    <main className="w-full h-full px-20">
+    <main className="w-full h-full px-5 md:px-20">
       <div
-        className="w-full h-full flex flex-col relative justify-center items-center rounded-3xl"
+        className="w-full h-full flex flex-col relative justify-around items-center rounded-3xl py-5"
         style={{
           background: "rgba(63, 71, 101, 0.23)",
           boxShadow:
@@ -58,26 +58,25 @@ const TestPerfect: React.FC<Props> = ({ user }) => {
         }}
       >
         {infoOpen && <Info title="Tuning" onClose={() => setInfoOpen(false)} />}
-        <header className="w-full flex items-start justify-between px-5">
-          <button className="w-1/5 pl-10" onClick={() => setInfoOpen(true)}>
+        <header className="w-full flex flex-wrap items-start justify-between px-2 md:px-5">
+          <button
+            className="w-1/6 md:w-1/5 pl-5 md:pl-10"
+            onClick={() => setInfoOpen(true)}
+          >
             <FaQuestion
               size={30}
               className="text-indigo-200/40 hover:text-indigo-200/60 duration-200 glow"
             />
           </button>
-          <div className="flex flex-col items-center justify-center w-3/5">
-            <h1 className="">Perfect</h1>
-            <p>{"What's the pitch of the note?"}</p>
+          <div className="flex flex-col items-center justify-center w-2/3 md:w-3/5">
+            <h1 className="text-2xl md:text-4xl">Tuning</h1>
+            <p className="text-center w-5/6">
+              {"Is the pitch higher or lower?"}
+            </p>
+            <h3>{score}</h3>
           </div>
-          <div className="flex flex-col items-end w-1/5 pr-10">
-            {Array.from({ length: 3 }, (_, i) => (
-              <IoClose
-                size={40}
-                key={i}
-                className={i < mistakes ? "text-red-300" : "text-slate-200"}
-              />
-            ))}
-          </div>
+          <div className="w-1/6 md:w-0" />
+          <Mistakes mistakes={mistakes} />
         </header>
         <button
           className="p-3 mb-2 relative flex flex-col items-center justify-center duration-300"

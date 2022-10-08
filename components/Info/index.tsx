@@ -11,7 +11,7 @@ const Info: React.FC<Props> = ({ title, onClose }) => {
   const test: any = tests.find((test) => test.title === title);
 
   return (
-    <main className="absolute w-full h-full flex flex-col items-center justify-evenly backdrop-blur-md bg-slate-600/50 z-10 rounded-3xl p-10">
+    <main className="absolute w-full h-full flex flex-col items-center justify-evenly backdrop-blur-md bg-slate-800/20 z-10 rounded-3xl p-10">
       <header className="w-full h-1/5 flex items-start justify-between self-start px-5">
         <div className="w-1/5" />
         <div className="flex flex-col items-center justify-center w-3/5">
